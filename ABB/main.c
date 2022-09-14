@@ -4,11 +4,9 @@
 /// @brief Estrutura do Node contendo um ponteiro pra esquerda, um pra direita e o valor contido no nodo
 typedef struct sNode
 {
-
     int data;
 
     struct sNode *left, *right;
-
 } Node;
 
 void preOrder (Node *);
@@ -22,7 +20,6 @@ Node *removeNode(Node *, int );
 
 int main()
 {
-
     Node *root = NULL;
 
     root = insert(root, 5);
@@ -45,6 +42,7 @@ int main()
 
     printf("\n");
     preOrder(root);
+
     freeTree(root);
 
     return 0;
@@ -103,11 +101,10 @@ void freeTree (Node *node)
 /// @return Ponteiro para o espaço alocado.
 Node *newNode(int data)
 {
-
     Node *temp = (Node *)malloc(sizeof(Node));
     temp->data = data;
-
     temp->left = temp->right = NULL;
+
     return temp;
 }
 
@@ -117,17 +114,14 @@ Node *newNode(int data)
 /// @return Retorna o nodo a ser inserido
 Node *insert(Node *node, int data)
 {
-
     if (node == NULL)
         return newNode(data); // Return a new node if the tree if empty
     if (data <= node->data)
     {
-
         node->left = insert(node->left, data);
     }
     else if (data > node->data)
     {
-
         node->right = insert(node->right, data);
     }
 
@@ -140,13 +134,13 @@ Node *insert(Node *node, int data)
 Node *removeRoot(Node *root)
 {
     Node *p, *q;
-    if (root->left == NULL)
+    if (root->left == NULL)//Caso 2 - apenas elemento a adireita da raiz
     {
         q = root->right;
         free(root);
         return q;
     }
-    if (root->right == NULL)
+    if (root->right == NULL)//Caso 2 - apenas elemento a esquerda raiz
     {
         q = root->left;
         free(root);
@@ -154,14 +148,14 @@ Node *removeRoot(Node *root)
     }
     p = root;
     q = root->left;
-    while (q->right != NULL)
+    while (q->right != NULL)//Caso 3 - encontra o elemento mais a direita da sub arvore da esquerda
     {
         p = q;
         q = q->right;
     }
-    // q é nó anterior a root na ordem e-root-d
+    // q é o nodo com valor mais alto a esquerda da raiz(Nodo que será removido - root)
     // p é pai de q
-    if (p != root)
+    if (p != root)//Evita que 'q' aponte pra ele mesmo
     {
         p->right = q->left;
         q->left = root->left;
@@ -177,11 +171,10 @@ Node *removeRoot(Node *root)
 /// @return Retorna a raiz após a remoção
 Node *removeNode(Node *node, int data)
 {
-
     if (node->data == data)
     {
         // faz a remoção
-        if (node->left == NULL && node->right == NULL)
+        if (node->left == NULL && node->right == NULL)//Caso 1 - Removendo uma folha
         {
             free(node);
             return NULL;
@@ -193,12 +186,10 @@ Node *removeNode(Node *node, int data)
 
     if (data <= node->data)
     {
-
         node->left = removeNode(node->left, data);
     }
     else if (data > node->data)
     {
-
         node->right = removeNode(node->right, data);
     }
 
