@@ -1,21 +1,28 @@
 # Estrutura de Dados II
 
-Repositório referente a matéria de estrutura de dados II da quarta fase de BCC
+Repositório referente a matéria de estrutura de dados II da quarta fase de BCC.
 
 ## Projetos Implementados
 
-* __ABB - Árvore de Busca Binária(Finalizado)__
+- ### ABB - Árvore de Busca Binária(Finalizado)
 
-Realizar a implementação de um algorítimo de ABB genérico, que será reutilizado posteriormente.
+  Realizar a implementação de um algorítimo de ABB genérico, que será reutilizado posteriormente conforme solicitado pelo professor Manassés Ribeiro.
 
-_Funções implementadas:_
+   _Funções implementadas:_
 
-* Inserção de novos elementos na árvore.
+  - Inserção de novos elementos na árvore, adicionando os elementos de valor conflitante a esquerda.
 
-* asdsad
+  - Remoção de elementos, substituindo pelo maior nodo da subárvore da esquerda, caso o nodo removido possua 2 subárvores.
+
+  - Algorítimos de _PreOrder, InOrder e PostOrder_ para percorrer e mostrar a arvore.
+
+  - Desalocação de todos os elementos da arvore, recursivamente utilizando o algorítimo de _PostOrder_.
+
+  __Referências:__
+  - [Google](https://www.google.com/)
 
 ---
 
-*Árvore AVL(Em desenvolvimento)
+- ### Árvore AVL(Em desenvolvimento)
 
-    Realizar a implementação do algoritimo de árvore AVL
+  Realizar a implementação do algorítimo de árvore AVL conforme solicitado pelo professor Manassés Ribeiro.
