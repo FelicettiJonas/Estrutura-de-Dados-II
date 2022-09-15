@@ -35,15 +35,15 @@ int main()
     root = insert(root, 40);
     root = insert(root, 50);
     root = insert(root, 25);
-    root = insert(root, 8);
-    root = insert(root, 9);
-    root = insert(root, 4);
-    root = insert(root, 6);
-    root = insert(root, 11);
+    // root = insert(root, 8);
+    // root = insert(root, 9);
+    // root = insert(root, 4);
+    // root = insert(root, 6);
+    // root = insert(root, 11);
 
     preOrder(root);
 
-    // root = removeNode(root, 10);
+    root = removeNode(root, 40);
 
     printf("\n");
     preOrder(root);
@@ -170,6 +170,43 @@ int getBalance(Node *node)
     return height(node->left) - height(node->right);
 }
 
+/// @brief Verifica o balanceamento de um nodo
+/// @param node nodo a ser verificado
+/// @param data Valor que foi retirado ou adicionado
+/// @return Retorna o nodo após ser balanceado
+Node *verifyBalance(Node *node, int data)
+{
+    //Pega o fator de balanceamento atual
+    int balance = getBalance(node);
+ 
+    //Se o nodo estiver desbalanceado realiza o balanceamento
+ 
+    // Left Left Case
+    if (balance > 1 && data < node->left->data)
+        return rightRotate(node);
+ 
+    // Right Right Case
+    if (balance < -1 && data > node->right->data)
+        return leftRotate(node);
+ 
+    // Left Right Case
+    if (balance > 1 && data > node->left->data)
+    {
+        node->left =  leftRotate(node->left);
+        return rightRotate(node);
+    }
+ 
+    // Right Left Case
+    if (balance < -1 && data < node->right->data)
+    {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
+
+    //Retorna o nodo sem nenhuma alteração
+    return node;
+}
+
 /// @brief Realiza o processo de alocação de memória para o novo nodo.
 /// @param data Valor contido no Node
 /// @return Ponteiro para o espaço alocado.
@@ -203,34 +240,7 @@ Node *insert(Node *node, int data)
     //Atualiza a altura do nodo
     node->height = height(node);
  
-   //Pega o fator de balanceamento atual
-    int balance = getBalance(node);
- 
-    //Se o nodo estiver desbalanceado realiza o balanceamento
- 
-    // Left Left Case
-    if (balance > 1 && data < node->left->data)
-        return rightRotate(node);
- 
-    // Right Right Case
-    if (balance < -1 && data > node->right->data)
-        return leftRotate(node);
- 
-    // Left Right Case
-    if (balance > 1 && data > node->left->data)
-    {
-        node->left =  leftRotate(node->left);
-        return rightRotate(node);
-    }
- 
-    // Right Left Case
-    if (balance < -1 && data < node->right->data)
-    {
-        node->right = rightRotate(node->right);
-        return leftRotate(node);
-    }
- 
-   //Retorna o nodo sem nenhuma alteração
+    node = verifyBalance(node, data);
 
     return node;
 }
@@ -299,6 +309,11 @@ Node *removeNode(Node *node, int data)
     {
         node->right = removeNode(node->right, data);
     }
+
+    //Atualiza a altura do nodo
+    node->height = height(node);
+
+    node = verifyBalance(node, data);
 
     return node;
 }
