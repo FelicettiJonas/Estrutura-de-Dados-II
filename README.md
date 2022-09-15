@@ -19,7 +19,8 @@ Repositório referente a matéria de estrutura de dados II da quarta fase de BCC
   - Desalocação de todos os elementos da arvore, recursivamente utilizando o algorítimo de _PostOrder_.
 
   __Referências:__
-  - [Google](https://www.google.com/)
+  - [GeeksforGeeks - Binary Tree Data Structure](https://www.geeksforgeeks.org/binary-tree-data-structure/)
+  - [ime.usp - Árvores binárias de busca](https://www.ime.usp.br/~pf/algoritmos/aulas/binst.html)
 
 ---
 
