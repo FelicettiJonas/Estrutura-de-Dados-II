@@ -20,7 +20,7 @@ Repositório referente a matéria de estrutura de dados II da quarta fase de BCC
 
   __Referências:__
   - [GeeksforGeeks - Binary Tree Data Structure](https://www.geeksforgeeks.org/binary-tree-data-structure/)
-  - [ime.usp - Árvores binárias de busca](https://www.ime.usp.br/~pf/algoritmos/aulas/binst.html)
+  - [Paulo Feofiloff USP - Árvores binárias de busca](https://www.ime.usp.br/~pf/algoritmos/aulas/binst.html)
 
 ---
 
