@@ -48,7 +48,7 @@ int main()
     return 0;
 }
 
-/// @brief Algoritimo de pré ordem para mostrar a construção da arvore.
+/// @brief Algorítimo de pré ordem para mostrar a construção da arvore.
 /// @param node Raiz da arvore
 void preOrder (Node *node)
 {
@@ -60,7 +60,7 @@ void preOrder (Node *node)
     }
 }
 
-/// @brief Algoritimo de ordem para mostrar a construção da arvore.
+/// @brief Algorítimo de ordem para mostrar a construção da arvore.
 /// @param node Raiz da arvore
 void inOrder (Node *node)
 {
@@ -72,7 +72,7 @@ void inOrder (Node *node)
     }
 }
 
-/// @brief Algoritimo de pós-ordem para mostrar a construção da arvore.
+/// @brief Algorítimo de pós-ordem para mostrar a construção da arvore.
 /// @param node Raiz da arvore
 void postOrder (Node *node)
 {
@@ -84,7 +84,7 @@ void postOrder (Node *node)
     }
 }
 
-/// @brief Algoritimo recursivo para desalocar a memória de todos os nodos da arvore.
+/// @brief Algorítimo recursivo para desalocar a memória de todos os nodos da arvore.
 /// @param node Raiz da arvore
 void freeTree (Node *node)
 {
@@ -130,11 +130,11 @@ Node *insert(Node *node, int data)
 
 /// @brief Remove uma raiz, caso a mesma possua dois filhos, o nodo de maior valor a esquerda da raiz removida tomara seu lugar.
 /// @param root Raiz que será removida
-/// @return Retorna o nodo que subistituira a raiz
+/// @return Retorna o nodo que substituirá a raiz
 Node *removeRoot(Node *root)
 {
     Node *p, *q;
-    if (root->left == NULL)//Caso 2 - apenas elemento a adireita da raiz
+    if (root->left == NULL)//Caso 2 - apenas elemento a direita da raiz
     {
         q = root->right;
         free(root);
