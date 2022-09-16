@@ -58,7 +58,7 @@ int main()
 
     printf("\n");
     preOrder(root);
-    printf("\nTeste");
+
     root = removeNode(root, 70);
 
     printf("\n");
@@ -202,7 +202,7 @@ Node *newNode(int data)
 /// @brief Percorre a arvore recursivamente até encontrar a folha onde o novo nodo dever ser inserido
 /// @param node Raiz da arvore
 /// @param data Valor a ser inserido
-/// @return Retorna o nodo a ser inserido
+/// @return Retorna a raiz após a inserção
 Node *insert(Node *node, int data)
 {
     if (node == NULL)
