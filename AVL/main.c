@@ -27,14 +27,25 @@ int main()
 {
     Node *root = NULL;
 
-    root = insert(root, 5);
+    // root = insert(root, 5);
 
-    root = insert(root, 10);
+    root = insert(root, (rand() % 50));
+    root = insert(root, (rand() % 50));
+    root = insert(root, (rand() % 50));
+    root = insert(root, (rand() % 50));
+    root = insert(root, (rand() % 50));
+    root = insert(root, (rand() % 50));
+    root = insert(root, (rand() % 50));
+    root = insert(root, (rand() % 50));
     root = insert(root, 20);
     root = insert(root, 30);
     root = insert(root, 40);
     root = insert(root, 50);
-    root = insert(root, 25);
+    root = insert(root, 60);
+    root = insert(root, 70);
+    root = insert(root, 80);
+    root = insert(root, 90);
+    // root = insert(root, 25);
     // root = insert(root, 8);
     // root = insert(root, 9);
     // root = insert(root, 4);
@@ -43,7 +54,12 @@ int main()
 
     preOrder(root);
 
-    root = removeNode(root, 40);
+    root = removeNode(root, 60);
+
+    printf("\n");
+    preOrder(root);
+    printf("\nTeste");
+    root = removeNode(root, 70);
 
     printf("\n");
     preOrder(root);
@@ -59,7 +75,7 @@ void preOrder (Node *node)
 {
     if (node != NULL)
     {
-        printf("%i ", node->data);
+        printf("%i-%i ", node->data, node->height);
         preOrder(node->left);
         preOrder(node->right);
     }
@@ -170,12 +186,39 @@ int getBalance(Node *node)
     return height(node->left) - height(node->right);
 }
 
-/// @brief Verifica o balanceamento de um nodo
-/// @param node nodo a ser verificado
-/// @param data Valor que foi retirado ou adicionado
-/// @return Retorna o nodo após ser balanceado
-Node *verifyBalance(Node *node, int data)
+/// @brief Realiza o processo de alocação de memória para o novo nodo.
+/// @param data Valor contido no Node
+/// @return Ponteiro para o espaço alocado.
+Node *newNode(int data)
 {
+    Node *temp = (Node *)malloc(sizeof(Node));
+    temp->data = data;
+    temp->height = 1;
+    temp->left = temp->right = NULL;
+
+    return temp;
+}
+
+/// @brief Percorre a arvore recursivamente até encontrar a folha onde o novo nodo dever ser inserido
+/// @param node Raiz da arvore
+/// @param data Valor a ser inserido
+/// @return Retorna o nodo a ser inserido
+Node *insert(Node *node, int data)
+{
+    if (node == NULL)
+        return newNode(data); // Return a new node if the tree if empty
+    if (data <= node->data)
+    {
+        node->left = insert(node->left, data);
+    }
+    else if (data > node->data)
+    {
+        node->right = insert(node->right, data);
+    }
+
+    //Atualiza a altura do nodo
+    node->height = height(node);
+ 
     //Pega o fator de balanceamento atual
     int balance = getBalance(node);
  
@@ -202,45 +245,6 @@ Node *verifyBalance(Node *node, int data)
         node->right = rightRotate(node->right);
         return leftRotate(node);
     }
-
-    //Retorna o nodo sem nenhuma alteração
-    return node;
-}
-
-/// @brief Realiza o processo de alocação de memória para o novo nodo.
-/// @param data Valor contido no Node
-/// @return Ponteiro para o espaço alocado.
-Node *newNode(int data)
-{
-    Node *temp = (Node *)malloc(sizeof(Node));
-    temp->data = data;
-    temp->height = 0;
-    temp->left = temp->right = NULL;
-
-    return temp;
-}
-
-/// @brief Percorre a arvore recursivamente até encontrar a folha onde o novo nodo dever ser inserido
-/// @param node Raiz da arvore
-/// @param data Valor a ser inserido
-/// @return Retorna o nodo a ser inserido
-Node *insert(Node *node, int data)
-{
-    if (node == NULL)
-        return newNode(data); // Return a new node if the tree if empty
-    if (data <= node->data)
-    {
-        node->left = insert(node->left, data);
-    }
-    else if (data > node->data)
-    {
-        node->right = insert(node->right, data);
-    }
-
-    //Atualiza a altura do nodo
-    node->height = height(node);
- 
-    node = verifyBalance(node, data);
 
     return node;
 }
@@ -298,10 +302,8 @@ Node *removeNode(Node *node, int data)
         }
 
         node = removeRoot(node);
-        return node;
-    }
-
-    if (data <= node->data)
+        node->height = height(node);
+    }else if (data <= node->data)
     {
         node->left = removeNode(node->left, data);
     }
@@ -313,7 +315,32 @@ Node *removeNode(Node *node, int data)
     //Atualiza a altura do nodo
     node->height = height(node);
 
-    node = verifyBalance(node, data);
+    //Pega o fator de balanceamento atual
+    int balance = getBalance(node);
+ 
+    //Se o nodo estiver desbalanceado realiza o balanceamento
+ 
+    // Left Left Case
+    if (balance > 1 && data > node->left->data)
+        return rightRotate(node);
+ 
+    // Right Right Case
+    if (balance < -1 && data < node->right->data)
+        return leftRotate(node);
+ 
+    // Left Right Case
+    if (balance > 1 && data < node->left->data)
+    {
+        node->left =  leftRotate(node->left);
+        return rightRotate(node);
+    }
+ 
+    // Right Left Case
+    if (balance < -1 && data > node->right->data)
+    {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
 
     return node;
 }
