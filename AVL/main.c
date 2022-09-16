@@ -29,14 +29,15 @@ int main()
 
     // root = insert(root, 5);
 
-    root = insert(root, (rand() % 50));
-    root = insert(root, (rand() % 50));
-    root = insert(root, (rand() % 50));
-    root = insert(root, (rand() % 50));
-    root = insert(root, (rand() % 50));
-    root = insert(root, (rand() % 50));
-    root = insert(root, (rand() % 50));
-    root = insert(root, (rand() % 50));
+    // root = insert(root, (rand() % 50));
+    // root = insert(root, (rand() % 50));
+    // root = insert(root, (rand() % 50));
+    // root = insert(root, (rand() % 50));
+    // root = insert(root, (rand() % 50));
+    // root = insert(root, (rand() % 50));
+    // root = insert(root, (rand() % 50));
+    // root = insert(root, (rand() % 50));
+    root = insert(root, 10);
     root = insert(root, 20);
     root = insert(root, 30);
     root = insert(root, 40);
@@ -51,18 +52,20 @@ int main()
     // root = insert(root, 4);
     // root = insert(root, 6);
     // root = insert(root, 11);
-
+    printf("\n");
     preOrder(root);
 
     root = removeNode(root, 60);
-
     printf("\n");
     preOrder(root);
 
     root = removeNode(root, 70);
-
     printf("\n");
     preOrder(root);
+
+    // root = removeNode(root, 28);
+    // printf("\n");
+    // preOrder(root);
 
     freeTree(root);
 
@@ -186,6 +189,41 @@ int getBalance(Node *node)
     return height(node->left) - height(node->right);
 }
 
+// @brief Realiza o balanceamento de um nodo.
+/// @param node Nodo a ser balanceado
+/// @return Retorna o nodo após ser balanceado
+Node *doBalance(Node *node)
+{
+    //Pega o fator de balanceamento atual
+    int balance = getBalance(node);
+ 
+    //Se o nodo estiver desbalanceado realiza o balanceamento
+ 
+    // Left Left Case
+    if (balance > 1 && getBalance(node->left) >= 0)
+        return rightRotate(node);
+ 
+    // Left Right Case
+    if (balance > 1 && getBalance(node->left) < 0)
+    {
+        node->left =  leftRotate(node->left);
+        return rightRotate(node);
+    }
+ 
+    // Right Right Case
+    if (balance < -1 && getBalance(node->right) <= 0)
+        return leftRotate(node);
+ 
+    // Right Left Case
+    if (balance < -1 && getBalance(node->right) > 0)
+    {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
+
+    return node;
+}
+
 /// @brief Realiza o processo de alocação de memória para o novo nodo.
 /// @param data Valor contido no Node
 /// @return Ponteiro para o espaço alocado.
@@ -216,35 +254,9 @@ Node *insert(Node *node, int data)
         node->right = insert(node->right, data);
     }
 
-    //Atualiza a altura do nodo
     node->height = height(node);
- 
-    //Pega o fator de balanceamento atual
-    int balance = getBalance(node);
- 
-    //Se o nodo estiver desbalanceado realiza o balanceamento
- 
-    // Left Left Case
-    if (balance > 1 && data < node->left->data)
-        return rightRotate(node);
- 
-    // Right Right Case
-    if (balance < -1 && data > node->right->data)
-        return leftRotate(node);
- 
-    // Left Right Case
-    if (balance > 1 && data > node->left->data)
-    {
-        node->left =  leftRotate(node->left);
-        return rightRotate(node);
-    }
- 
-    // Right Left Case
-    if (balance < -1 && data < node->right->data)
-    {
-        node->right = rightRotate(node->right);
-        return leftRotate(node);
-    }
+
+    node = doBalance(node);
 
     return node;
 }
@@ -315,32 +327,7 @@ Node *removeNode(Node *node, int data)
     //Atualiza a altura do nodo
     node->height = height(node);
 
-    //Pega o fator de balanceamento atual
-    int balance = getBalance(node);
- 
-    //Se o nodo estiver desbalanceado realiza o balanceamento
- 
-    // Left Left Case
-    if (balance > 1 && data > node->left->data)
-        return rightRotate(node);
- 
-    // Right Right Case
-    if (balance < -1 && data < node->right->data)
-        return leftRotate(node);
- 
-    // Left Right Case
-    if (balance > 1 && data < node->left->data)
-    {
-        node->left =  leftRotate(node->left);
-        return rightRotate(node);
-    }
- 
-    // Right Left Case
-    if (balance < -1 && data > node->right->data)
-    {
-        node->right = rightRotate(node->right);
-        return leftRotate(node);
-    }
+    node = doBalance(node);
 
     return node;
 }
