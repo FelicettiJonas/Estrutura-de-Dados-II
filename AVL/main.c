@@ -37,15 +37,30 @@ int main()
     // root = insert(root, (rand() % 50));
     // root = insert(root, (rand() % 50));
     // root = insert(root, (rand() % 50));
+    root = insert(root, 15);
+    root = insert(root, 25);
+    root = insert(root, 35);
+    root = insert(root, 45);
+    root = insert(root, 65);
+    root = insert(root, 55);
+    root = insert(root, 44);
+    root = insert(root, 34);
+    root = insert(root, 24);
     root = insert(root, 10);
-    root = insert(root, 20);
-    root = insert(root, 30);
+    root = insert(root, 15);
+    root = removeNode(root, 25);
+    root = removeNode(root, 35);
+    root = removeNode(root, 15);
+    root = insert(root, 42);
     root = insert(root, 40);
-    root = insert(root, 50);
+    root = insert(root, 43);
+    root = removeNode(root, 44);
     root = insert(root, 60);
     root = insert(root, 70);
-    root = insert(root, 80);
-    root = insert(root, 90);
+    root = insert(root, 50);
+    root = insert(root, 67);
+    root = insert(root, 64);
+    root = removeNode(root, 65);
     // root = insert(root, 25);
     // root = insert(root, 8);
     // root = insert(root, 9);
@@ -55,13 +70,13 @@ int main()
     printf("\n");
     preOrder(root);
 
-    root = removeNode(root, 60);
-    printf("\n");
-    preOrder(root);
+    // root = removeNode(root, 60);
+    // printf("\n");
+    // preOrder(root);
 
-    root = removeNode(root, 70);
-    printf("\n");
-    preOrder(root);
+    // root = removeNode(root, 70);
+    // printf("\n");
+    // preOrder(root);
 
     // root = removeNode(root, 28);
     // printf("\n");

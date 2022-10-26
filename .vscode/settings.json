@@ -2,5 +2,6 @@
     "cSpell.enableFiletypes": [
         "markdown"
     ],
-    "cSpell.language": "en,lorem,pt-BR"
+    "cSpell.language": "en,lorem,pt-BR",
+    "C_Cpp.errorSquiggles": "Disabled"
 }
